@@ -4,7 +4,21 @@ project(sshexample)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_VERBOSE_MAKEFILE TRUE)
 
-add_executable(sshexample src/example.cpp) 
 set(CMAKE_EXE_LINKER_FLAGS "-L/usr/lib/x86_64-linux-gnu")
-target_link_libraries(sshexample PRIVATE ssh)
+
+
+#[[add_executable(sshexample 
+	src/example.cpp
+	src/udsock.cpp
+	)
+target_link_libraries(sshexample PRIVATE ssh)]]
+
+
+add_executable(ssl_server_client
+    src/ssl_client.cpp)
+target_link_libraries(ssl_server_client PRIVATE 
+    ssl
+    crypto)
+
+
 

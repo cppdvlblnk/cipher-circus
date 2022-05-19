@@ -1,9 +1,36 @@
+#include <vector>
+#include <string>
 #include <iostream>
 #include <libssh/libssh.h>
 
 
+std::vector<std::string> words {};
+
+
 int main(int argc, char**argv)
 {
+	
+	std::string input2encypt = std::string{};
+	bool first=true;
+	for(auto index = 0; index < argc; ++index)
+		words.push_back(argv[index]);
+	for(auto&token : words)
+	{
+		if (first){
+			first = false;
+			continue;
+		}
+
+		std::cout << token << std::endl;
+		
+		if (!input2encypt.empty()) input2encypt+=" ";
+		input2encypt += token;
+
+	}
+	
+	std::cout << input2encypt << std::endl;
+
+
 	char* b64_key[1];
 	std::cout << "Hello world\n";
 	auto k = ssh_key_new();
@@ -40,7 +67,7 @@ int main(int argc, char**argv)
 	{
 		std::cout << "Key generation result SSH_ERROR" << std::endl;
 	}
-
+	
 	free(k);
 	return 0;
 
