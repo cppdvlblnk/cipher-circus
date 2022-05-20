@@ -23,6 +23,8 @@ if (DEFINED ENV{OPENSSL_DIR} OR DEFINED OPENSSL_DIR)
 	message (STATUS "Dir: ${OPENSSL_DIR}")
 	target_include_directories(ssl_server_client PRIVATE ${OPENSSL_DIR}/include)
 	target_link_directories(ssl_server_client PRIVATE ${OPENSSL_DIR}/lib)
+else()
+    message (FATAL_ERROR "No OPENSSL_DIR environment variable set.")   
 endif()
 
 target_link_libraries(ssl_server_client PRIVATE 
