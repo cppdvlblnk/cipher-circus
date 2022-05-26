@@ -1,6 +1,7 @@
 #include <string>
 #include <vector>
 #include <cstring>
+#include <sstream>
 #include <iostream>
 #include <utility>
 #include <netdb.h>
@@ -11,47 +12,16 @@
 #include <sys/socket.h>
 
 
-SSL_METHOD* pMethod;
-SSL_CTX* pCtx;
-
-
-std::vector<std::string> ssl_error_strings{};
+#define PORT 9876
+#define SHIFT 6
 
 
 
 
-void init_open_ssl()
-{
-    OpenSSL_add_all_algorithms();
-    SSL_load_error_strings();
-}
-
-
-std::pair<const SSL_METHOD*, SSL_CTX*> init_ssl_mthd_ctxt()
-{
-    const SSL_METHOD* mthd = SSLv23_client_method();
-    SSL_CTX* ctxt = SSL_CTX_new(mthd);
-    return std::make_pair(mthd, ctxt);
-}
-
-
-SSL* ssl_protocol_up(SSL_CTX* ctxt)
-{
-    auto ssl = SSL_new(ctxt);
-    return ssl;
-}
-
-void ssl_protocol_teardown(SSL*pssl, int socket)
-{
-
-    SSL_free(pssl);
-    close(socket);
-}
-
-int bind_ssl_socket_and_connect(SSL*pssl, int socket)
+int ssl_connect(SSL*pssl, int server_socket)
 {
     int ret;
-    if(!SSL_set_fd(pssl, socket))
+    if(!SSL_set_fd(pssl, server_socket))
     {
         ERR_print_errors_fp(stderr);
         return -1;
@@ -62,8 +32,11 @@ int bind_ssl_socket_and_connect(SSL*pssl, int socket)
         ERR_print_errors_fp(stderr);
         return ret;
     }
-    return ret;
+    return server_socket;
 }
+
+
+
 
 int connect_to_server(std::string hostname, unsigned short port)
 {
@@ -74,21 +47,10 @@ int connect_to_server(std::string hostname, unsigned short port)
     addr.sin_family = AF_INET;
     addr.sin_port = htons(port);
     addr.sin_addr.s_addr = (reinterpret_cast<long*>(host->h_addr))[0];
-    if (connect(sd, (const sockaddr*)&addr, sizeof(addr)) == -1) close(sd);
+    if (connect(sd, (const sockaddr*)&addr, sizeof(addr)) == -1)
+    {
+        close(sd);
+    }
     return sd;
     
 }
-
-int main(int argc, char**argv)
-{
-
-    init_open_ssl();
-    auto [m,c] = init_ssl_mthd_ctxt();
-    
-    auto ssl_suite_str = SSL_get_cipher(SSL_new(c));
-    std::cout << "SSL Suite:\n" << ssl_suite_str << std::endl;
-
-
-    return 0;
-}
-
