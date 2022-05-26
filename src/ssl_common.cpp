@@ -1,4 +1,20 @@
 #include "ssl_common.h"
+
+
+bool check_params(int argc, char**argv)
+{
+
+	std::vector<std::string> tokens {};
+	std::stringstream ss;
+	for(auto index = 0; index < argc; ++index)
+	{
+		ss << "[" << index << "] " << std::string{argv[index]} << std::endl;
+		tokens.push_back(std::string{argv[index]});
+	}
+
+	print_string(ss);
+	return true;
+}
 void print_string(std::string str) 
 {
     std::cout << getpid() << " " << str << std::endl; 

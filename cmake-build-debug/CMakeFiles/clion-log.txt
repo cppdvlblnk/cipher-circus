@@ -1,0 +1,31 @@
+/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_DEPENDS_USE_COMPILER=FALSE -G "CodeBlocks - Unix Makefiles" /Users/julianguarin/Code/BlnkFctr/Prontomas/pki_handshake/sick_solarium
+-- The C compiler identification is AppleClang 13.1.6.13160021
+-- The CXX compiler identification is AppleClang 13.1.6.13160021
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Apple found
+-- No OPENSSL_DIR environment variable set.
+CMake Error at CMakeLists.txt:65 (message):
+  Apple detected: Do:
+
+  
+
+  	brew ls openssl@1.1
+
+  
+
+  and export the variable with the path to the folder containing both include
+  and lib folders, into OPENSSL_DIR
+
+
+-- Configuring incomplete, errors occurred!
+See also "/Users/julianguarin/Code/BlnkFctr/Prontomas/pki_handshake/sick_solarium/cmake-build-debug/CMakeFiles/CMakeOutput.log".
+See also "/Users/julianguarin/Code/BlnkFctr/Prontomas/pki_handshake/sick_solarium/cmake-build-debug/CMakeFiles/CMakeError.log".

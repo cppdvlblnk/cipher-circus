@@ -22,6 +22,7 @@ enum class ROLE_TYPE{
 };
 
 //COMMON Utilities
+bool check_parms(int,char**);
 void print_string(std::stringstream&);
 void print_string(std::string);
 
@@ -48,4 +49,6 @@ int connect_to_server(std::string hostname, unsigned short port);
 int server_listens(std::string hostname, unsigned short port);
 int server_accepts(int server_socket);
 int ssl_accept(SSL*, int server_socket);
+
+//sa
 
